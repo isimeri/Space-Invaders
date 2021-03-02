@@ -12,22 +12,81 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 .board{
     height: 750px;
     width: 750px;
     background-color: white;
-    display: flex;
+    display: none;
     flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 .cell{
     height: 50px;
     width: 50px;
-    outline: 1px solid purple;
+    /* outline: 1px solid purple; */
 }
 .enemy{
     background-color: teal;
 }
 .hero{
     background-color: darkolivegreen;
+}
+.laser{
+    background: linear-gradient(90deg, rgba(0,0,0,0) 35%, red 45% 55%, rgba(0,0,0,0) 65% 100%);
+}
+.text-container{
+    position: absolute;
+    padding: 50px;
+    top: 30%;
+    height: 300px;
+    width: 500px;
+    background-color: #bbb;
+    box-shadow: 0 0 5px 1000px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 20px;
+    
+}
+.text-container.hide{
+    display: none;
+}
+.text{
+    color: white;
+    font-size: 26px;
+    text-transform: uppercase;
+}
+.restartBtn{
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 10px;
+    border: none;
+    background-color: darkgreen;
+    color: white;
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.2s ease-in-out;
+}
+.restartBtn:hover{
+    cursor: pointer;
+    background-color: rgb(4, 116, 4);
+}
+.startBtn{
+    width: 150px;
+    padding: 15px 0;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid white;
+    background-color: darkgreen;
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+.startBtn:hover{
+    cursor: pointer;
+    background-color: white;
+    color: darkgreen;
 }
