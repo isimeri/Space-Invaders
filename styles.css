@@ -8,13 +8,15 @@
     height: 100vh;
     width: 100vw;
     background-color: darkgreen;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
     justify-content: center;
+    justify-items: center;
     position: relative;
 }
 .board{
+    grid-column: 2/3;
     height: 750px;
     width: 750px;
     background-color: white;
@@ -40,6 +42,8 @@
     position: absolute;
     padding: 50px;
     top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
     height: 300px;
     width: 500px;
     background-color: #bbb;
@@ -75,6 +79,7 @@
     background-color: rgb(4, 116, 4);
 }
 .startBtn{
+    grid-column: 2/3;
     width: 150px;
     padding: 15px 0;
     font-family: "Poppins", sans-serif;
@@ -89,4 +94,17 @@
     cursor: pointer;
     background-color: white;
     color: darkgreen;
+}
+.instructions-container{
+    display: none;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 0 20px;
+    height: 150px;
+    justify-self: start;
+    border: 3px dashed white;
+}
+.instructions-container p{
+    font-size: 26px;
+    color: white;
 }

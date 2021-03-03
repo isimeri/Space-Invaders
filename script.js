@@ -3,14 +3,16 @@ const textP = document.querySelector(".text");
 const textCard = document.querySelector(".text-container");
 const restartBtn = document.querySelector(".restartBtn");
 const startBtn = document.querySelector(".startBtn");
+const controls = document.querySelector(".instructions-container");
 const width = 15;
 let enemies = [3,4,5,6,7,8,9,10,11,18,19,20,21,22,23,24,25,26,33,34,35,36,37,38,39,40,41];
 let aliens = [...enemies];
 let aliensLastColumn = [11,26,41];
-let aliensFirstColumn = [3,18,33]
+let aliensFirstColumn = [3,18,33];
 let cells = [];
 let direction = 1;
 let gameOver = false;
+let enemyInterval;
 
 restartBtn.addEventListener("click", ()=>{
     while(board.firstChild){
@@ -18,6 +20,8 @@ restartBtn.addEventListener("click", ()=>{
     }
     cells = [];
     aliens = [...enemies];
+    aliensLastColumn = [11,26,41];
+    aliensFirstColumn = [3,18,33];
     createBoard();
     textCard.classList.add("hide");
     gameOver = false;
@@ -26,6 +30,7 @@ startBtn.addEventListener("click", ()=>{
     createBoard();
     startBtn.style.display = "none";
     board.style.display = "flex";
+    controls.style.display = "flex"
 });
 
 function createBoard(){
@@ -40,6 +45,7 @@ function createBoard(){
     cells[217].classList.add("hero");
     document.addEventListener("keydown", moveHero);
     document.addEventListener("keydown", shootLaser);
+    enemyInterval = setInterval(moveEnemy, 200);
 }
 
 // function clearBoard(){
@@ -85,7 +91,9 @@ function moveEnemy(){
         for(let i = 0;i<aliens.length; i++){
             aliens[i]+=width; 
         }
+        console.log(direction);
         paintBoard();
+        checkForLose();
         return;
     }
     if(aliensFirstColumn.some(item => item%width === 0) && direction === -1){
@@ -94,11 +102,11 @@ function moveEnemy(){
         for(let i = 0;i<aliens.length; i++){
             aliens[i]+=width; 
         }
+        console.log(direction);
         paintBoard();
+        checkForLose();
         return;
     }
-    console.log(aliensFirstColumn);
-    console.log(aliensLastColumn);
     for(let i = 0;i<aliens.length; i++){
         aliens[i]+=direction; 
     }
@@ -112,14 +120,25 @@ function checkForWin(){
         gameOver = true;
         textCard.classList.remove("hide");
         textP.innerText = "What a glorious victory!";
-        //clearInterval(enemyInterval);
+        clearInterval(enemyInterval);
+    }
+}
+function checkForLose(){
+    for(let i = cells.length -1; i>= cells.length-width; i--){
+        if(cells[i].classList.contains("enemy")){
+            gameOver=true;
+            clearInterval(enemyInterval);
+            textCard.classList.remove("hide");
+            textP.innerText = "What a loser lmao";
+            return;
+        }
     }
 }
 function shootLaser(e){
     if(gameOver){
         return;
     }
-    if(e.code === "Space"){
+    if(e.code === "KeyZ"){
         const hero = document.querySelector(".hero");
         const heroId = hero.id;
         let laserId = heroId-width;
@@ -143,11 +162,12 @@ function shootLaser(e){
     }
 }
 //createBoard();
-//const enemyInterval = setInterval(moveEnemy, 2000); // uncomment to make teh enemies move
+ // uncomment to make teh enemies move
 
 
 // implement moveEnemy and put it in a setInterval --------------done
 // implement shootLaser and put it on "space" key  --------------done
 // implement a check for win ------------------------------------done
-// implement losing conditions
+// implement losing conditions ----------------------------------done
 // implement start/restart buttons-------------------------------done
+// implement instructions panel
